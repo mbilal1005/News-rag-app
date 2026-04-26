@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+langchain
+langchain-openai
+langchain-community
+faiss-cpu
+openai
+psycopg2-binary
+feedparser
+pydantic

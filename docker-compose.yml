@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DATABASE_URL=postgresql://user:password@db:5432/newsdb
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: newsdb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d newsdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
